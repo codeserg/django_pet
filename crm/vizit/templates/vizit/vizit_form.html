@@ -1,0 +1,47 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<h4>Редактирование визита</h4>
+
+<form action="" method="post" enctype= "multipart/form-data">
+
+    {% csrf_token %}
+
+  {{info_sended}}
+	<table style="width: 100%;">
+    <colgroup>
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 80%;">
+      
+   </colgroup>
+   
+    {{form.as_table }}
+	</table>
+    <div class="submit-row">
+    <input type="submit" value="Сохранить">
+    {% if updatemode %}
+     <a href="{% url 'Vizit:VisitDelete' object.pk %}" class="deletelink">Удалить</a>
+    
+    {% endif %}
+    </div>
+</form>
+
+<script>
+    $(function () {
+      $("#id_datefact").datetimepicker({
+        format:'Y-m-d H:m',
+        allowTimes:[
+    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', 
+    '16:00','17:00', '18:00'
+    ],
+      }
+
+      );
+      
+    });
+  </script>
+
+<script src="{% static 'vizit/hint.js' %}"></script>
+{%endblock%}

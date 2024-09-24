@@ -1,0 +1,41 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<h4>Последние занесенные визиты</h4>
+
+<div id="visit list">
+    <table width = "100%">
+        <thead>
+            <tr>
+        <th>Kam</th>
+        <th>Тип визита</th>
+        <th>Организация</th>
+        <th>Контакт</th>
+        <th>Дата создания</th>
+        <th>Статус визита</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for n in Vizit %}
+            
+            <tr>
+            <td> <a href="{% url 'Vizit:VisitEdit' n.id %}">  {{ n.kamid }} </a> </td>
+            <td> <a href="{% url 'Vizit:VisitEdit' n.id %}">  {{ n.viztype }} </a> </td>
+            <td>  {{ n.hint_organization }}  </td>
+            <td> <a href="{% url 'Vizit:VisitEdit' n.id %}">  {{ n.contact }} </a> </td>
+            <td>  {{ n.datecreate }}  </td>
+            <td>  {{ n.vizstatus }}  </td>
+
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+
+
+</div>
+
+
+{%endblock%}

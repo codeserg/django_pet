@@ -1,0 +1,66 @@
+input[type=text], input[type=password], input[type=email], input[type=url],
+input[type=number], input[type=tel], textarea, select, .vTextField {
+
+    width: 50%;
+}
+
+#site-name h1 {
+    color: var(--accent);
+  }
+
+.simmenu {
+  padding:1em;
+  background: var(--primary);
+}
+
+#id_result {
+  vertical-align:bottom;
+  padding-top: 1em;
+  
+}
+
+.submit-row a.deletelink {
+  
+  background: var(--delete-button-bg);
+  border-radius: 4px;
+  padding: 10px 15px;
+  height: 15px;
+  line-height: 15px;
+  color: var(--button-fg);
+  margin-left:6em;
+}
+.submit-row input[type="submit"]{
+  
+  border: none;
+  font-weight: 400;
+  background: var(--default-button-bg);
+  text-transform: uppercase;
+  
+}
+
+.submit-row {
+  display: inline;
+  padding: 12px 14px;
+  margin: 0 0 20px;
+  background: var(--darkened-bg);
+  border: 1px solid var(--hairline-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.steplinks {
+  margin-left: 1em;
+  border: 1px solid var(--hairline-color);
+}
+
+.filter {
+  width:160px;
+}
+
+td.column_a {
+  background: #ccc;
+}
+
+td.column_b {
+  background: #ddd;
+}

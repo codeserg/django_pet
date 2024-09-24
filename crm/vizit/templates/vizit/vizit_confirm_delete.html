@@ -1,0 +1,21 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<h4>Удаление визита</h4>
+
+<form action="" method="post" enctype= "multipart/form-data">
+
+    {% csrf_token %}
+
+    <p>Тип визита: {{ delcontact.viztype }}</p>
+    <p>Дата визита: {{ delcontact.datefact }}</p>
+    <p>Кам: {{ delcontact.kamid }}</p>
+
+    <div class="submit-row">
+    <input type="submit" value="Удалить визит">
+    </div>
+</form>
+
+{%endblock%}

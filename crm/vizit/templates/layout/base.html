@@ -1,0 +1,195 @@
+{% load static %}
+{% load bootstrap4 %}
+{% if user.is_authenticated %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Учет визитов</title>
+
+
+
+
+    <link href="/static/admin/css/vendor/select2/select2.css" type="text/css" media="screen" rel="stylesheet">
+    <link href="/static/admin/css/autocomplete.css" type="text/css" media="screen" rel="stylesheet">
+    <script src="/static/admin/js/vendor/jquery/jquery.js"></script>
+    <!--
+    <script src="/static/admin/js/calendar.js"></script>
+    <script src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+    -->
+    <script src="/static/admin/js/vendor/select2/select2.full.js"></script>
+    <script src="/static/admin/js/vendor/select2/i18n/ru.js"></script>
+    <script src="/static/admin/js/jquery.init.js"></script>
+    <script src="/static/admin/js/core.js"></script>
+    
+    <script src="/static/admin/js/autocomplete.js"></script>
+    <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <script src="/static/admin/js/actions.js"></script>
+    <script src="/static/admin/js/urlify.js"></script>
+    <script src="/static/admin/js/prepopulate.js"></script>
+    <script src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
+    
+    <script src="/static/autocomplete_light/autocomplete_light.js"></script>
+    <script src="/static/autocomplete_light/select2.js"></script>
+    
+    <!-- XDSoft DateTimePicker -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+    
+  
+    
+<link type="text/css" href="{% static 'admin/css/nav_sidebar.css' %}"  media="screen" rel="stylesheet">
+<link type="text/css" href="{% static 'admin/css/base.css' %}"  media="screen" rel="stylesheet">
+<link type="text/css" href="{% static 'vizit/sim.css' %}"  media="screen" rel="stylesheet">
+<link type="text/css" href="/static/admin/css/vendor/select2/select2.css"  media="screen" rel="stylesheet">
+
+
+
+</head>
+<body class="app-vizit model-vizit change-list"  data-admin-utc-offset="0"></body>
+
+<div id="container">
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="/">Учет визитов</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Добро пожаловать
+                   <a href="/">На главную страницу</a> /
+                   
+                <a href="/accounts/password_change/">Изменить пароль</a> /
+                
+                <a href="/accounts/logout/">Выйти</a>
+            
+        </div>
+        
+        
+        
+    </div>
+<div class="breadcrumbs"> </div>
+<div id ="main" class ="main shifted">
+    <button id = "toggle-nav-sidebar" class="sticky toggle-nav-sidebar" aria-label=" "></button>
+    <nav id="nav-sidebar" class="sticky">
+        <div class="module">
+            <table>
+               
+                <thead><tr><th class="simmenu" >Ввод данных</th> <th class="simmenu"></th>  </tr>   </thead>
+                <tbody>
+                    <tr class ="model">
+                        <th>
+                            <a href="/visits" aria-current="page">Визиты</a>      
+                        </th>
+                        <td>
+                            <a href="/visitadd" class="addlink">Добавить</a>
+                        </td>   
+                    </tr>
+                    <tr class ="model">
+                        <th>
+                            <a href="/contacts" aria-current="page">Контакты</a>      
+                        </th>
+                        <td>
+                            <a href="/contactadd" class="addlink">Добавить</a>
+                        </td>
+                    </tr>
+                    <tr class ="model">
+                        <th>
+                            <a href="/events" aria-current="page">Мероприятия</a>      
+                        </th>
+                        <td>
+                            <a href="/eventadd" class="addlink">Добавить</a>
+                        </td>
+                    </tr>                
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="module">
+            <table>
+               
+                <thead><tr><th class="simmenu" >Отчеты</th> <th class="simmenu"></th>  </tr>   </thead>
+                <tbody>
+                    <tr class ="model">
+                        <th>
+                            <a href="/exp" aria-current="page">Выгрузить в Excel визиты</a>      
+                        </th>
+                        
+                    </tr>
+                    <tr class ="model">
+                        <th>
+                            <a href="/reports/kpi" aria-current="page">KPI частота визитов</a>      
+                        </th>
+                        
+                    </tr>
+                    <tr class ="model">
+                        <th>
+                            <a href="/reports/cont" aria-current="page">Список врачей
+                                
+                            </a>      
+                        </th>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div>
+            <table>
+               
+                <thead><tr><td  colspan="4" class="simmenu" >Количество визитов по категориям {{ratetitle.MonthName}} {{ratetitle.YearName}} Кам: {{ratetitle.KamName}}</td></tr> </thead>
+                <tbody>
+                    <tr class ="model">
+                        <td width="20%">
+                           Кат
+                        </td>
+                        <td>
+                           Визитов сделано
+                         </td>
+                         <td>
+                           Врачей в базе
+                         </td>
+                         <td>
+                           План визитов
+                          </td>
+                    </tr>
+                    
+                    <tr class ="model">
+                        <td>A</td><td>{{rate.fact_count_a}}</td><td>{{rate.contact_count_a}}</td><td>{{rate.plan_count_a}}</td> 
+                    </tr>
+                    
+                    <tr class ="model">
+                        <td>B</td><td>{{rate.fact_count_b}}</td><td>{{rate.contact_count_b}}</td><td>{{rate.plan_count_b}}</td> 
+                     </tr>
+                     
+                    <tr class ="model">
+                        <td>C</td><td>{{rate.fact_count_c}}</td><td>{{rate.contact_count_c}}</td><td>{{rate.plan_count_c}}</td> 
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </nav>
+    
+    <div class="content" style = "margin-left: 2em;">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+
+</div>    
+</body>
+</html>
+{% endif %}

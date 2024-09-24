@@ -1,0 +1,129 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+<h3>KPI Частота визитов</h3>
+
+<br><br>
+<p>1. Из общего количества дней в месяце вычитаются личные выходные (и больничные)</p>
+<p>2. Из полученного числа вычисляется время административной работы, равное 1/8 от общего времени (это 1 час из 8 рабочих). Полученное значение также вычитается из общего количества дней.</p>
+<p>3. Вычисляется "чистое" время работы, которое распределяется на визиты к врачам категории A, и далее, если время еще остается, а врачей мало - на категорию B</p>
+<br>
+
+<form method="get">
+    
+    {% csrf_token %}
+        <p> Год расчета: 
+        <select name="year" class="filter">
+            <option value="2022" {% if year == "2022" %}selected="selected"{% endif %} >2022</option>
+            <option value="2023" {% if year == "2023" %}selected="selected"{% endif %} >2023</option>
+        </select>
+        </p>
+
+        <p> Месяц расчета: 
+        <select name="month" class="filter">
+            <option value="1" {% if month == "1" %}selected="selected"{% endif %} >Январь</option>
+            <option value="2" {% if month == "2" %}selected="selected"{% endif %} >Февраль</option>
+            <option value="3" {% if month == "3" %}selected="selected"{% endif %} >Март</option>
+            <option value="4" {% if month == "4" %}selected="selected"{% endif %} >Апрель</option>
+            <option value="5" {% if month == "5" %}selected="selected"{% endif %} >Май</option>
+            <option value="6" {% if month == "6" %}selected="selected"{% endif %} >Июнь</option>
+            
+            <option value="7" {% if month == "7" %}selected="selected"{% endif %} >Июль</option>
+            <option value="8" {% if month == "8" %}selected="selected"{% endif %} >Август</option>
+            <option value="9" {% if month == "9" %}selected="selected"{% endif %} >Сентябрь</option>
+            <option value="10" {% if month == "10" %}selected="selected"{% endif %} >Октябрь</option>
+            <option value="11" {% if month == "11" %}selected="selected"{% endif %} >Ноябрь</option>
+            <option value="12" {% if month == "12" %}selected="selected"{% endif %} >Декабрь</option>
+                      
+          </select>
+        </p> 
+
+    <p><input type="submit" name="Показать" value="Показать"/></p>
+</form>
+
+
+<div id="visit list">
+    <table width = "100%">
+        <thead>
+            <tr>
+                <th></th><th></th><th></th><th></th><th></th>
+                <th colspan="5">Категория А</th>
+                <th colspan="5">Категория B</th>
+                <th colspan="5">Категория C</th>
+            </tr>
+
+            <tr>
+        <th>Kam</th>
+        <th>Дней в мес</th>
+        <th>Выходные</th>
+        <th>Адм. работа</th>
+        <th>Дней работы</th>
+        
+        <th>Врачей</th>
+        <th>План</th>
+        <th>Частота</th>
+        <th>Факт</th>
+        <th>%</th>
+        
+        <th>Врачей</th>
+        <th>План</th>
+        <th>Частота</th>
+        <th>Факт</th>
+        <th>%</th>
+        
+        <th>Врачей</th>
+        <th>План</th>
+        <th>Частота</th>
+        <th>Факт</th>
+        <th>%</th>
+        
+        
+        <th>Частота Суммарная</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for n in report %}
+            
+            <tr>
+            <td>  {{ n.kamid }}  </td>
+            <td>  {{ n.workdays }} </td>
+            <td>  {{ n.dayoff_minus }} </td>
+            <td>  {{ n.dayadm_minus }}  </td>
+            <td>  {{ n.workday_count }}  </td>
+           
+            <td class="column_a">  {{ n.contact_count_a }}  </td>
+            <td class="column_a">  {{ n.plan_count_a }}  </td>
+            <td class="column_a">  {{ n.freq_a|floatformat:2}}   </td>
+            <td class="column_a">  {{ n.fact_count_a }}  </td>
+            <td class="column_a">  <b>{{ n.procent_a|floatformat:0 }} </b> </td>
+
+            <td class="column_b">  {{ n.contact_count_b }}  </td>
+            <td class="column_b">  {{ n.plan_count_b }}  </td>
+            <td class="column_b">  {{ n.freq_b|floatformat:2}}   </td>
+            <td class="column_b">  {{ n.fact_count_b }}  </td>
+            <td class="column_b">  <b>{{ n.procent_b|floatformat:0 }} </b>  </td>
+
+            <td>  {{ n.contact_count_c }}  </td>
+            <td>  {{ n.plan_count_c }}  </td>
+            <td>  {{ n.freq_c|floatformat:2}}   </td>
+            <td>  {{ n.fact_count_c }}  </td>
+            <td>  <b>{{ n.procent_c|floatformat:0 }} </b>  </td>
+
+            <td>  {{ n.freq_total|floatformat:2 }}  </td>
+      
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+
+
+</div>
+<br><br>
+<p><a href="/admin/vizit/vizitfreq" >Редактировать выходные (только для админа)</a>     </p>
+<p><a href="/exp_kpi" aria-current="page">Выгрузить в Excel KPI </a>  </p>
+{%endblock%}

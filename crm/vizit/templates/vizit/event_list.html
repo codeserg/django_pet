@@ -1,0 +1,83 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<h4>Список мероприятий</h4>
+
+<form method="get">
+    
+    {% csrf_token %}
+
+
+        <p> Kam 
+        <select name="kamid" class="filter">
+            <option value="" selected>Все</option>
+          
+            <option value="1">Жанна</option>
+            <option value="2">Наталья</option>
+            <option value="3">Анастасия</option>
+            <option value="5">Москва</option>
+            <option value="7">Мария</option>
+            <option value="8">Наталья</option>
+            <option value="9">Дарья</option>
+            <option value="11">Светлана</option>
+          
+          </select>
+        </p> 
+
+
+
+   
+    <p><input type="submit" name="Применить фильтр" value="Применить фильтр"/></p>
+</form>
+
+
+<div id="event list">
+    <table width = "100%">
+        <thead>
+            <tr>
+        <th>КАМ</th>
+        <th>Город</th>
+        <th>Тема</th>
+        <th>Дата </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for n in Event %}
+            <tr>
+            <td> <a href="{% url 'Vizit:EventUpdate' n.id %}">  {{ n.kamid }} </a> </td>
+            <td>  {{ n.city }}  </td>
+            <td> <a href="{% url 'Vizit:EventUpdate' n.id %}">  {{ n.topic }} </a> </td>
+            <td>  {{ n.dateevent }}  </td>
+
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+
+
+</div>
+<div class="pagination" style="margin:1em;">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a style="margin:1em" href="?page=1">&laquo; Первая </a>
+            <a style="margin:1em" href="?page={{ page_obj.previous_page_number }}"> Предыдущая </a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a style="margin:1em" href="?page={{ page_obj.next_page_number }}"> Следующая</a>
+            <a style="margin:1em" href="?page={{ page_obj.paginator.num_pages }}"> Последняя &raquo; </a>
+        {% endif %}
+    </span>
+</div>
+<br>
+<p><a href="/exp_event" aria-current="page">Выгрузить в Excel мероприятия и их участников </a>  </p>
+<p><a href="/exp_event_short" aria-current="page">Выгрузить в Excel мероприятия (краткий список) </a>  Эта выгрузка занимает 1-2 минуты. Подождите формирования файла. </p>
+
+{%endblock%}
